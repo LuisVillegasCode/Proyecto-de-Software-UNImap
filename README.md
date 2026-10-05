@@ -1,33 +1,90 @@
-🔎 UNIMap: Sistema para la Detección y Gestión de Vulnerabilidades de Seguridad con Python,2024. En este presente repositorio se encuentra los códigos que forman parte del proyecto del curso de POO por parte de estudiantes de la Facultad de Ingenieria Electrica y Electrónica de la Universidad Nacional de Ingenieria (UNI), Lima, Perú. 
+# UNIMap
 
-# UNIMAP
+UNIMap es una herramienta académica desarrollada en Python para apoyar el análisis inicial de conectividad y exposición de servicios dentro de una red controlada. Integra Nmap para descubrir hosts y puertos, clasifica los servicios detectados mediante una base de reglas y genera reportes que facilitan la revisión de hallazgos.
 
-UNIMAP es un código hecho en python en el cual se ha implemando [NMAP](https://nmap.org/ "NMAP"), con el cual se podrá realizar escaneos de conectividad y vulnerabilidades a los dispositivos conectados en una misma red. Genera reportes en formato HTML, TXT y CSV. Enviado una notificación (en caso el usuario lo desee) con una copia del reporte generado en ese instante por parte del programa, detallando los puertos con sus respectivo grado de riesgo de cada IP escaneada dentro del rango ingresado. 
+El proyecto fue desarrollado como parte del curso de Programación Orientada a Objetos de la Facultad de Ingeniería Eléctrica y Electrónica de la Universidad Nacional de Ingeniería.
 
-# Ejecución del código
+## Funcionalidades
 
-Para la ejecución del código se implementó flask como un intermediario entre el frontend y el backend (escanerNMAP.py), con el nombre "app.py". Para poder hacer uso del código,  la carpeta del proyecto se deberá encontrar en el escritorio y usar la extensión "ESCANER.bat" de está manerá se estaria activando el servidor Flask. En caso no se desee usar está extensión se deberá activar el servidor Flask de manera manual desde el CMD, o sea que deberá encontrarse en el mismo lugar donde halla descargado la carpeta del proyecto en el CMD y activar el servidor flask con el comando:
+- Descubrimiento de hosts activos mediante Nmap.
+- Escaneo de puertos y servicios expuestos.
+- Clasificación inicial de riesgos a partir de reglas definidas en una base JSON.
+- Recomendaciones de mitigación asociadas a los servicios identificados.
+- Generación de reportes en formatos HTML, CSV y TXT.
+- Envío opcional de reportes por correo electrónico.
+- Interfaz web sencilla construida con Flask.
+
+## Alcance
+
+UNIMap no reemplaza una plataforma profesional de gestión de vulnerabilidades. La identificación de riesgos se basa en una base de reglas mantenida dentro del proyecto y no realiza, por sí sola, correlación automática con fuentes como NVD, CPE, CVE o feeds de inteligencia de amenazas.
+
+Su propósito es demostrar un flujo básico de descubrimiento de activos, identificación de servicios, clasificación de riesgo y generación de reportes.
+
+## Requisitos
+
+- Python 3
+- Nmap instalado en el sistema
+- Dependencias de Python incluidas en `requirements.txt`
+
+Instalación de dependencias:
+
+```bash
+pip install -r requirements.txt
+```
+
+Nmap debe instalarse por separado desde su distribución oficial y estar disponible en la variable `PATH` del sistema.
+
+## Configuración
+
+El módulo de notificaciones utiliza variables de entorno para evitar almacenar credenciales dentro del código.
+
+Crea un archivo `.env` local o configura las variables directamente en el sistema:
+
+```text
+GMAIL_USER=correo_ejemplo@gmail.com
+GMAIL_APP_PASSWORD=tu_contrasena_de_aplicacion
+```
+
+El archivo `.env` está excluido del control de versiones. El repositorio incluye `.env.example` únicamente como referencia.
+
+## Ejecución
+
+Desde la carpeta `UNImap`:
+
 ```bash
 python app.py
 ```
-Es importante aclarar que la ventana del CMD deberá estar abierta para que el código pueda ser ejecutado.
-# Libreria
-Para el uso del código deberá tener la siguiente libreria:
-- NMAP:
-Este paquete permite interactuar con Nmap, una herramienta de escaneo de redes. Deberá instalarse desde la consola y ademas se deberá tener instalado NMAP en el sistema. Puede descargarlo desde [nmap](https://nmap.org/ "nmap").
 
-```bash
-pip install python-nmap
+La aplicación inicia un servidor Flask desde el cual se puede ingresar el rango de red, seleccionar el tipo de análisis y consultar el reporte generado.
 
+## Flujo general
+
+```text
+Rango de red
+    |
+    v
+Descubrimiento / escaneo con Nmap
+    |
+    v
+Identificación de servicios
+    |
+    v
+Clasificación mediante reglas
+    |
+    v
+Reporte HTML / CSV / TXT
+    |
+    v
+Notificación opcional por correo
 ```
 
-# Atención
+## Uso responsable
 
-Para la redacción de correos se usó una cuenta GMAIL creada unicamente para la presentación del proyecto, el cual posiblemente sea borrada, si se desea enviar los reportes hacia los correos se tendrá que modificar las lineas **273** (en ésta parte se ubica el correo gmail que se creó para la presentación del proyecto) y **314** (en esta parte se ubica la contraseña de aplicación y ésta se deberá generar de la cuenta a usar). Pueden ser modificadas con los usuarios de remitente a emplear. 
+El escaneo de redes debe realizarse únicamente sobre infraestructura propia o sobre entornos para los que se cuente con autorización expresa.
 
-# Autores
+## Autores
 
-- Zahid Franschesco Palomino Pimpinco - zahid.palomino.p@uni.pe
-- Luis Javier Villegas Noblecilla - luis.villegas.n@uni.pe
+- Zahid Franschesco Palomino Pimpinco
+- Luis Javier Villegas Noblecilla
 - Fatima Lizeth Toscano Velasquez
-- Adrian Mayta Nuñez 
+- Adrian Mayta Nuñez
